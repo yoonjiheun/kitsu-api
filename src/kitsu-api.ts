@@ -10,26 +10,34 @@ export default class KitsuApi {
     'Content-Type': 'application/vnd.api+json'
   };
 
+  // Creates a kitsu query builder with what you want to query.
+  // Ex anime, database-lib, etc. Types can be found on kitsu documentation.
   query(keyword: string): KitsuApi {
     this.KitsuQueryBuilder = new KitsuQueryBuilder(keyword);
     return this;
   }
 
+  // Below adds filters to query params.
+
+  // Page offset.
   paginationOffset(offset: number): KitsuApi {
     this.KitsuQueryBuilder.addQueryParams(`page[offset]=${offset}`);
     return this;
   }
 
+  // Page limit
   paginationLimit(limit: number): KitsuApi {
     this.KitsuQueryBuilder.addQueryParams(`page[limit]=${limit}`);
     return this;
   }
 
+  // Filters based on key and values.
   filter(filterKey: string, filterValue: string): KitsuApi {
     this.KitsuQueryBuilder.addQueryParams(`filter[${filterKey}]=${filterValue}`);
     return this;
   }
 
+  // Sorts based on certain keys. Need to figure out which keys are avaliable from discord or documentation.
   sort(attributes: string[]): KitsuApi {
     attributes = attributes.map( a => {
       return KitsuQueryBuilder.DASH + a;
@@ -38,16 +46,19 @@ export default class KitsuApi {
     return this;
   }
 
+  // Can filter based on relationships.
   includes(relationship: string[]): KitsuApi {
     this.KitsuQueryBuilder.addQueryParams(`includes=${relationship.join(KitsuQueryBuilder.COMMA)}`);
     return this;
   }
 
+  // Filters based on certain attributes in object.
   sparse(fieldKey: string, fieldValues: string[]): KitsuApi {
     this.KitsuQueryBuilder.addQueryParams(`fields[${fieldKey}]=${fieldValues.join(KitsuQueryBuilder.COMMA)}`);
     return this;
   }
 
+  // Executes the api call. Must be called or nothing will happen.
   async execute(): Promise<KitsuApiModel> {
     return new Promise<KitsuApiModel>((resolve, reject) => {
       const options = {
