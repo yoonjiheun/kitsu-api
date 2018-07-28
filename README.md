@@ -3,9 +3,13 @@
 This is a wrapper for the JSON API provided by Kitsu for Node.js.
 Full documentation can be found on their [website](https://kitsu.docs.apiary.io/#introduction/json-api).
 
-## How to get start
+## How to get started
 
-Install with NPM ```npm i kitsu-json-api```
+Install with NPM
+```
+npm i kitsu-json-api
+```
+Import module to your js file
 ```javascript
 import KitsuApi from 'kitsu-json-api';
 ```
@@ -22,8 +26,17 @@ let kitsuApi =  new KitsuApi();
 
 #### execute()
  Execution method for this wrapper API. You must call this to run the query/api call to kitsu!
+ This method will return a promise with the response from kitsu.
+ Kitsu response is modeled as
+```javascript
+ {
+   data: [{
+      // object attributes
+     }]
+ }
+ ```
 #### query(keyword)
- First method you need to call to properly call the API (I will move this to the constructor b/c it makes more sense). The query function takes in a parameter that is a category the API allows you to query. For example if you want to query for animes you would do
+ First method you need to call to properly call the API. The query function takes in a parameter that is a category the API allows you to query. For example if you want to query for animes you would do
  ```javascript
   kitsuApi.query('anime')
  ```
@@ -31,9 +44,9 @@ let kitsuApi =  new KitsuApi();
 #### paginationOffset(number)
   Sets the [offset for pagination](https://kitsu.docs.apiary.io/#introduction/json-api/pagination) when receiving data.
 #### paginationLimit(number)
-  Sets the (limit for pagination)[https://kitsu.docs.apiary.io/#introduction/json-api/pagination] when receiving data.
+  Sets the [limit for pagination](https://kitsu.docs.apiary.io/#introduction/json-api/pagination) when receiving data.
 #### filter(filterKey, [ filterValues ])
-  Allows you to (filter the category you)[https://kitsu.docs.apiary.io/#introduction/json-api/filtering-and-search] query based on attributes of that category. Check [here](https://kitsu.docs.apiary.io/#reference) to find what attributes the category has.
+  Allows you to [filter the category you](https://kitsu.docs.apiary.io/#introduction/json-api/filtering-and-search] query based on attributes of that category. Check [here](https://kitsu.docs.apiary.io/#reference) to find what attributes the category has.
 #### sort([ attributes ])
   This methods takes in an array of flags and
   [sorts based off the flags](https://kitsu.docs.apiary.io/#introduction/json-api/sorting) given by Kitsu. I haven't found all of them but some are specified in the documentation.
@@ -47,8 +60,10 @@ let kitsuApi =  new KitsuApi();
 
 
 ## Example
+
+#### Async/Await
 ```javascript
-  kitsuApi
+  let result = await kitsuApi
     .query('anime') // anime category
     .filter('season', ['winter', 'spring']) // filter by winter and spring
     .filter('seasonYear', ['2017']) // filter by year 2017
@@ -56,4 +71,19 @@ let kitsuApi =  new KitsuApi();
     .paginationOffset(2) // set offset
     .sort(['followersCount', 'followingCount']) // sort by follower count and following count
     .execute(); // execute the query
+```
+or
+
+#### Promises
+```javascript
+kitsuApi
+  .query('anime') // anime category
+  .filter('season', ['winter', 'spring']) // filter by winter and spring
+  .filter('seasonYear', ['2017']) // filter by year 2017
+  .paginationLimit(10) // set limit
+  .paginationOffset(2) // set offset
+  .sort(['followersCount', 'followingCount']) // sort by follower count and following count
+  .execute().then(result => {
+    // do something with json data
+  });
 ```
