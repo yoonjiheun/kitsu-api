@@ -1,6 +1,6 @@
 {
   "name": "kitsu-json-api",
-  "version": "1.0.9",
+  "version": "1.1.1",
   "description": "",
   "main": "dist/kitsu-json-api",
   "typings": "dist/kitsu-json-api",
@@ -8,7 +8,8 @@
     "prepublishOnly": "npm run compile",
     "compile": "npm run clean && tsc -p .",
     "watch": "tsc -w -p .",
-    "clean": "del dist"
+    "clean": "del dist",
+    "test": "ts-node ./test/test.ts"
   },
   "bugs": {
   "url": "http://github.com/yoonjiheun/kitsu-api/issues"
@@ -30,10 +31,6 @@
     "request-promise": "^4.2.2"
   },
   "files": [
-    "dist/kitsu-query-builder.js",
-    "dist/kitsu-query-builder.d.ts",
-    "dist/kitsu-json-api.js",
-    "dist/kitsu-json-api.d.ts",
-    "dist/lib"
+    "dist/*"
   ]
 }

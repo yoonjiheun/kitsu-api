@@ -1,6 +1,7 @@
 import * as request from 'request-promise';
 import KitsuQueryBuilder = require('./kitsu-query-builder');
-import KitsuApiModel = require('./kitsu-api-model');
+import KitsuResponse = require('./kitsu-response');
+import Filter = require('./filter');
 
 /**
 * Author: Ji Heun Yoon (John)
@@ -53,8 +54,10 @@ class KitsuApi {
   * @Param  The filter/object key and the filter/object value
   * @Return The instance of the KitsuApi so you can method chain filters.
   */
-  filter(filterKey: string, filterValue: string[]): KitsuApi {
-    this.kitsuQueryBuilder.addQueryParams(`filter[${filterKey}]=${filterValue.join(',')}`);
+  filter(filterObjects: Filter[]): KitsuApi {
+    filterObjects.forEach((filterObj: Filter) => {
+      this.kitsuQueryBuilder.addQueryParams(`filter[${filterObj.key}]=${filterObj.value.join(',')}`);
+    })
     return this;
   }
 
@@ -101,14 +104,14 @@ class KitsuApi {
   * @Param  N/A
   * @Return Promise of KitsuApiModel(Kitsu-Api response): { data: object[] }
   */
-  async execute(): Promise<KitsuApiModel> {
-    return new Promise<KitsuApiModel>((resolve, reject) => {
+  async execute(): Promise<KitsuResponse> {
+    return new Promise<KitsuResponse>((resolve, reject) => {
       const options = {
         uri: this.kitsuQueryBuilder.getURI(),
         headers: this.headers
       };
       request(options)
-        .then((resp: KitsuApiModel) => {
+        .then((resp: KitsuResponse) => {
           return resolve(resp);
         })
         .catch(e => {
