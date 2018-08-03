@@ -7,7 +7,7 @@ Full documentation can be found on their [website](https://kitsu.docs.apiary.io/
 
 Install with NPM
 ```
-npm i kitsu-json-api
+npm i kitsu-json-api --save
 ```
 Import module to your js file
 ```javascript
@@ -45,10 +45,7 @@ let kitsuApi =  new KitsuApi();
   Sets the [offset for pagination](https://kitsu.docs.apiary.io/#introduction/json-api/pagination) when receiving data.
 #### paginationLimit(number)
   Sets the [limit for pagination](https://kitsu.docs.apiary.io/#introduction/json-api/pagination) when receiving data.
-#### filter({Array.<{
-#### filterKey: string,
-#### filterValue: string[],
-#### }>)
+#### filter({Array.<{ filterKey: string, filterValue: string[], }>})
   Allows you to [filter the category you](https://kitsu.docs.apiary.io/#introduction/json-api/filtering-and-search] query based on attributes of that category.) [Check here](https://kitsu.docs.apiary.io/#reference) to find what attributes the category has.
 #### sort([ attributes ])
   This methods takes in an array of flags and
@@ -97,7 +94,7 @@ kitsuApi
       key: 'seasonYear', // filter by year 2017
       value: ['2017']
     }
-  ]) 
+  ])
   .paginationLimit(10) // set limit
   .paginationOffset(2) // set offset
   .sort(['followersCount', 'followingCount']) // sort by follower count and following count
