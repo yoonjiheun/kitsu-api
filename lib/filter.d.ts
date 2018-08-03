@@ -1,6 +1,6 @@
 /**
 * Author: Ji Heun Yoon (John)
-* Interface created to show expected response object from Kitsu JSON API
+* Interface created to show model of Filter object
 */
 interface Filter {
   key: string;
