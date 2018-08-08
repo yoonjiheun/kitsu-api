@@ -46,7 +46,7 @@ let kitsuApi =  new KitsuApi();
 #### paginationLimit(number)
   Sets the [limit for pagination](https://kitsu.docs.apiary.io/#introduction/json-api/pagination) when receiving data.
 #### filter({Array.<{ filterKey: string, filterValue: string[], }>})
-  Allows you to [filter the category you](https://kitsu.docs.apiary.io/#introduction/json-api/filtering-and-search) query based on attributes of that category.) [Check here](https://kitsu.docs.apiary.io/#reference) to find what attributes the category has.
+  Allows you to [filter the category you](https://kitsu.docs.apiary.io/#introduction/json-api/filtering-and-search) query based on attributes of that category. [Check here](https://kitsu.docs.apiary.io/#reference) to find what attributes the category has.
 #### sort([ attributes ])
   This methods takes in an array of flags and
   [sorts based off the flags](https://kitsu.docs.apiary.io/#introduction/json-api/sorting) given by Kitsu. I haven't found all of them but some are specified in the documentation.
